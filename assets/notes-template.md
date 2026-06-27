@@ -12,7 +12,6 @@
 ## Commands run
 | # | Command (via kali skill) | Result / key output |
 |---|--------------------------|---------------------|
-| 1 |                          |                     |
 
 ## Findings
 <what worked, what was ruled out>

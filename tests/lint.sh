@@ -27,7 +27,7 @@ for name in "${EXPECTED[@]}"; do
     grep -qF "$h" "$f" || err "$f missing section '$h'"
   done
   # commands must not hardcode the kali host/transport
-  if grep -qiE 'ssh +[a-z]+@|192\.168\.|nohup .*2>&1 &' "$f"; then
+  if grep -qE 'ssh +[a-zA-Z0-9._-]+@|192\.168\.|nohup .*2>&1 &' "$f"; then
     err "$f hardcodes kali connection details (delegate to kali skill instead)"
   fi
 done
