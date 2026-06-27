@@ -53,19 +53,17 @@ volatility3 -f <file> windows.info
 volatility3 -f <file> windows.pslist
 volatility3 -f <file> windows.cmdline
 volatility3 -f <file> windows.filescan | grep -i flag
-volatility3 -f <file> windows.dumpfiles --physaddr <addr>
+volatility3 -f <file> windows.dumpfiles --pid <pid>
 # Linux profile
 volatility3 -f <file> linux.pslist
 ```
 
 **NTFS alternate data streams**
 ```bash
-# On a mounted Windows image — list ADS
-python3 -c "
-import os
-# use pytsk3 or mount with 'mount -o loop,ro' then check with 'ls -la' and 'getfattr'
-"
-# Or mount the image and use: dir /r (Windows) / getfattr (Linux with ntfs-3g)
+# On a mounted Windows image — list/read ADS
+mount -o loop,ro <file> /mnt/img        # mount via ntfs-3g
+getfattr -R -d -m '.*' /mnt/img         # list alternate data streams (Linux)
+# Windows equivalent: dir /r   then   more < file:stream
 ```
 
 **PDF analysis**

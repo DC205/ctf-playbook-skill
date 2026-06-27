@@ -48,7 +48,7 @@ dig axfr @<target> <domain>
 # Convert to John-compatible hash, then crack
 zip2john <file> > hash.txt
 ssh2john <file> > hash.txt
-7z2john <file> > hash.txt
+7z2john.pl <file> > hash.txt   # may be named 7z2john on some installs
 pdf2john <file> > hash.txt
 # Crack with John
 gunzip /usr/share/wordlists/rockyou.txt.gz   # if still compressed

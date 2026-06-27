@@ -61,7 +61,6 @@ gdb ./<bin>
 # In gdb: catch syscall ptrace
 # Patch the binary: find the conditional jump after the ptrace check and NOP it
 python3 -c "
-import struct
 with open('<bin>','r+b') as f:
     f.seek(<offset>)
     f.write(b'\x90\x90')  # NOP the jump

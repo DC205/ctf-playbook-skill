@@ -52,8 +52,9 @@ strings <file>
 **Text / whitespace steganography**
 ```bash
 # Detect tabs/spaces encoding (SNOW or similar)
-stegsnow -C -m "passphrase" <file>
-cat -A <file>   # shows ^I for tabs, trailing spaces
+cat -A <file>                     # shows ^I for tabs, trailing spaces
+stegsnow -C <file>                # extract hidden whitespace data
+stegsnow -C -p "passphrase" <file>  # extract when a passphrase was used
 # Whitespace / zero-width character decoder — use an online tool or custom script
 ```
 

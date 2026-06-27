@@ -42,7 +42,7 @@ python3 -c "
 ct = bytes.fromhex('<hex>')
 for k in range(256):
     pt = bytes(b ^ k for b in ct)
-    if b'flag' in pt.lower() or all(32 <= c < 127 for c in pt):
+    if b'flag' in pt.lower() or b'CTF' in pt:   # filter on a crib, not just printable
         print(k, pt)
 "
 # Crib-dragging for reused pad — use xortool or cracxor online

