@@ -57,7 +57,7 @@ gdb ./<bin>
 
 **Anti-debug bypass**
 ```bash
-# Common anti-debug: ptrace self-check, timing, int 3 traps
+# Common anti-debug: ptrace self-check, IsDebuggerPresent (Windows), timing, int 3 traps
 # In gdb: catch syscall ptrace
 # Patch the binary: find the conditional jump after the ptrace check and NOP it
 python3 -c "

@@ -20,8 +20,9 @@ Run these via the kali skill (it owns host/auth):
 **Encoding chains**
 ```bash
 # CyberChef "Magic" — paste input, enable Magic mode for auto-detection
-# Manual chain: base64 → hex → URL → ROT → repeat
+# Manual chain: base64 → base32 → hex → URL → ROT → repeat
 echo '<data>' | base64 -d
+echo '<data>' | base32 -d
 echo '<data>' | xxd -r -p
 python3 -c "import urllib.parse; print(urllib.parse.unquote('<data>'))"
 # Morse, Brainfuck, Whitespace — use dcode.fr or CyberChef recipes

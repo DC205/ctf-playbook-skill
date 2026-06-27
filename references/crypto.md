@@ -60,6 +60,8 @@ if exact: print(bytes.fromhex(hex(m)[2:]))
 "
 # Factor weak modulus — try FactorDB then sympy
 python3 -c "from sympy import factorint; print(factorint(<n>))"
+# Wiener's attack — when d is small (large e), recover d from continued fractions
+# (RsaCtfTool --attack wiener, or owiener / the wiener_attack recipe)
 # All-in-one wrapper
 RsaCtfTool --publickey <file>.pub --uncipher <file>.enc
 RsaCtfTool -n <n> -e <e> --uncipher <c> --attack all
